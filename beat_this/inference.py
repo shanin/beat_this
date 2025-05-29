@@ -306,6 +306,14 @@ class Audio2Beats(Audio2Frames):
 
 
 class File2Beats(Audio2Beats):
+    """Class for extracting beat and downbeat times from an audio file."""
+
+    def __init__(
+        self, checkpoint_path="final0", device="cpu", float16=False, dbn=False, min_bpm=55.0, max_bpm=215.0
+    ):
+        super().__init__(checkpoint_path, device, float16, dbn)
+        self.postprocessor = Postprocessor(type="dbn" if dbn else "minimal", min_bpm=min_bpm, max_bpm=max_bpm)
+
     def __call__(self, audio_path):
         signal, sr = load_audio(audio_path)
         return super().__call__(signal, sr)
