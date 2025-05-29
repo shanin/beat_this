@@ -23,7 +23,7 @@ class Postprocessor:
         max_bpm (float): maximum BPM for DBN processing. Default is 215.0.
     """
 
-    def __init__(self, type: str = "minimal", fps: int = 50, min_bpm: float = 55.0, max_bpm: float = 215.0):
+    def __init__(self, type: str = "minimal", fps: int = 50, min_bpm: float = 55.0, max_bpm: float = 215.0, transition_lambda: float = 100):
         assert type in ["minimal", "dbn"]
         self.type = type
         self.fps = fps
@@ -37,7 +37,7 @@ class Postprocessor:
                 min_bpm=self.min_bpm,
                 max_bpm=self.max_bpm,
                 fps=self.fps,
-                transition_lambda=100,
+                transition_lambda=transition_lambda,
             )
 
     def __call__(
